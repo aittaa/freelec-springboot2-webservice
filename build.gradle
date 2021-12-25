@@ -1,0 +1,38 @@
+
+//buildscript 안에서 정의된 dependencies는 task 사용할 때 사용됨
+//buildscript 밖에서 정의된 dependencies는 소스 컴파일할 때 등에 사용된다.
+
+buildscript{ // 플러그인 의존성 관리 설정
+
+    ext{ //build.gradle에서 사용하는 전역변수 설정 키워드
+        springBootVersion = '2.1.9.RELEASE' // 변수 = 값
+    }
+    repositories{
+        mavenCentral()
+    }
+    dependencies{ // 의존성 설정
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+
+//앞서 선언한 플러그인 의존성들을 적용할 것인지를 결정
+//자바와 스프링 부트 사용 위한 필수 플러그인들
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management' // 스프링 부트의 의존성들 관리해 주는 플러그인
+
+
+group 'com.jojoIdu.book'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies { //프로젝트 개발에 필요한 의존성들을 선언하는 곳
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
